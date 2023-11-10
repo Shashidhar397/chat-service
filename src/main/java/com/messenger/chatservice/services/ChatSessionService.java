@@ -6,6 +6,6 @@ public interface ChatSessionService {
 
     public void saveSessionDetails(String sessionId, String userName);
 
-    public AddUserResponseModel getSessionIdByUserName(String userName);
+    public AddUserResponseModel getSessionIdByUserUuid(String userName);
 
 }

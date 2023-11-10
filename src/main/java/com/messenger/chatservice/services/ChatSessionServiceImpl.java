@@ -18,7 +18,7 @@ public class ChatSessionServiceImpl implements ChatSessionService {
     }
 
     @Override
-    public AddUserResponseModel getSessionIdByUserName(String userName) {
-        return new AddUserResponseModel(userToSessionMap.get(userName), userName);
+    public AddUserResponseModel getSessionIdByUserUuid(String uuid) {
+        return new AddUserResponseModel(userToSessionMap.get(uuid), uuid);
     }
 }

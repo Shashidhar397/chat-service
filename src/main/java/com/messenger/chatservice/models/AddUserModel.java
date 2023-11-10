@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddUserModel {
 
-    private String userName;
+    private String uuid;
 
 }
