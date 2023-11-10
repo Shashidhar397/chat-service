@@ -1,12 +1,13 @@
 package com.messenger.chatservice.services;
 
 import com.messenger.chatservice.models.AddUserModel;
-import com.messenger.chatservice.models.ChatMessage;
+import com.messenger.chatservice.models.ChatMessageRequestModel;
+import com.messenger.chatservice.models.ChatMessageResponseModel;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 public interface ChatService {
 
     void addUser(AddUserModel addUserModel, SimpMessageHeaderAccessor simpMessageHeaderAccessor);
 
-    public void sendMessage(ChatMessage chatMessage);
+    public ChatMessageResponseModel sendMessage(ChatMessageRequestModel chatMessageRequestModel);
 }

@@ -5,10 +5,8 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ChatMessage {
-
+public class ChatMessageRequestModel {
     private String content;
-    private String receiver;
-    private String sender;
-
+    private User recipient;
+    private User sender;
 }
