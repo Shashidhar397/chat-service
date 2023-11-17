@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class ChatMessageRequestModel {
     private String content;
-    private User recipient;
-    private User sender;
+    private String recipientUuid;
+    private String senderUuid;
+    private MessageType messageType;
+    private MessageStatus messageStatus;
 }
