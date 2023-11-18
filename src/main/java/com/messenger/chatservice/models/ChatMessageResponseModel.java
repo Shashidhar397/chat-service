@@ -1,6 +1,8 @@
 package com.messenger.chatservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.messenger.chatservice.models.entity.Conversation;
+import com.messenger.chatservice.models.entity.Message;
 import lombok.Data;
 
 import java.util.Map;
@@ -14,11 +16,13 @@ public class ChatMessageResponseModel {
     private User recipient;
     private User sender;
     private MessageType messageType;
+    private String conversationUuid;
 
-    public ChatMessageResponseModel(ChatMessageRequestModel chatMessageRequestModel, Map<String, User> users) {
-        this.uuid = UUID.randomUUID().toString();
-        this.content = chatMessageRequestModel.getContent();
-        this.recipient = users.get(chatMessageRequestModel.getRecipientUuid());
-        this.sender = users.get(chatMessageRequestModel.getSenderUuid());
+    public ChatMessageResponseModel(Message message, Map<String, User> users, Conversation conversation) {
+        this.uuid = message.getUuid().toString();
+        this.content = message.getContent();
+        this.recipient = users.get(message.getRecipientUuid());
+        this.sender = users.get(message.getSenderUuid());
+        this.conversationUuid = conversation.getUuid().toString();
     }
 }

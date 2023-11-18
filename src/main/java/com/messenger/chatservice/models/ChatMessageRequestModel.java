@@ -11,4 +11,5 @@ public class ChatMessageRequestModel {
     private String senderUuid;
     private MessageType messageType;
     private MessageStatus messageStatus;
+    private String conversationUuid;
 }

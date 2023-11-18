@@ -10,8 +10,8 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.util.List;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author shashidhar
@@ -28,9 +28,9 @@ public class Conversation {
     @CassandraType(type = CassandraType.Name.UUID)
     private UUID uuid;
 
-    @Column("message_id")
-    @CassandraType(type = CassandraType.Name.TEXT)
-    private String messageId;
+    @Column("messages")
+    @CassandraType(type = CassandraType.Name.LIST, typeArguments = CassandraType.Name.UUID)
+    private List<UUID> messages;
 
     @Column("users_involved")
     @CassandraType(type = CassandraType.Name.LIST, typeArguments = CassandraType.Name.TEXT)
@@ -38,6 +38,13 @@ public class Conversation {
 
     @Column("created_at")
     @CassandraType(type = CassandraType.Name.TIMESTAMP)
-    private Long createdAt;
+    private Timestamp createdAt;
 
+    public Conversation(Message message) {
+        this.messages = new ArrayList<>();
+        this.messages.add(message.getUuid());
+        this.usersInvolved = Arrays.asList(message.getRecipientUuid(), message.getSenderUuid());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.uuid = UUID.randomUUID();
+    }
 }
