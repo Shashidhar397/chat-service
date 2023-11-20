@@ -3,7 +3,6 @@ package com.messenger.chatservice.services;
 import com.messenger.chatservice.models.GetUsersRequestModel;
 import com.messenger.chatservice.models.GetUsersResponseModel;
 import com.messenger.chatservice.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,8 +17,12 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public UserServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     @Override
     public Map<String, User> getUsers(List<String> userUuids) {
         ResponseEntity<GetUsersResponseModel> response = restTemplate.postForEntity("http://localhost:8082/users/getUsers", new GetUsersRequestModel(userUuids), GetUsersResponseModel.class);

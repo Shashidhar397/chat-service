@@ -1,5 +1,6 @@
 package com.messenger.chatservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.messenger.chatservice.models.AddUserModel;
 import com.messenger.chatservice.models.ChatHistoryResponseModel;
 import com.messenger.chatservice.models.ChatMessageRequestModel;
@@ -26,10 +27,20 @@ public class ChatController {
         this.chatService.addUser(addUserModel,simpMessageHeaderAccessor);
     }
 
+    @PostMapping(value = "/updateMessageStatus", consumes = "application/json", produces = "application/json")
+    public void updateMessageStatus(@RequestBody ChatMessageResponseModel chatMessageResponseModel) throws JsonProcessingException {
+        log.info("updating message status");
+        this.chatService.updateMessageStatusAndSendMessage(chatMessageResponseModel);
+    }
+
     @PostMapping(value = "/sendMessage", consumes = "application/json", produces = "application/json")
     public ChatMessageResponseModel sendMessage(@RequestBody ChatMessageRequestModel chatMessageRequestModel) {
         log.info(chatMessageRequestModel.getContent());
-        return this.chatService.sendMessage(chatMessageRequestModel);
+        try {
+            return this.chatService.sendMessage(chatMessageRequestModel);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping(value = "/chatHistory/{userUuid}", produces = "application/json")
